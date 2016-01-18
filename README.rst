@@ -33,5 +33,5 @@ Run
 ```sh
 (uopboh-hub) $ export DEBUG=True
 (uopboh-hub) $ ./manage.py createsuperuser
-(uopboh-hub) $ ./manage.py runserver
+(uopboh-hub) $ ./manage.py runserver  
 ```
