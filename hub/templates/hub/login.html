@@ -1,0 +1,108 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Control Interface for Botswana MoH TB project">
+    <meta name="keywords" content="TB control interface Botswana">
+    <meta name="author" content="Western Cape Labs">
+
+    <title>
+
+        UoP Botswana MoH TB Training &middot;
+
+    </title>
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+
+      <link href="{% static "hub/css/toolkit-inverse.css" %}" rel="stylesheet">
+
+
+    <link href="{% static "hub/css/application.css" %}" rel="stylesheet">
+
+    <style>
+
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+
+      .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin .checkbox {
+        font-weight: normal;
+      }
+      .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+      }
+      .form-signin .form-control:focus {
+        z-index: 2;
+      }
+      .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    </style>
+  </head>
+
+
+<body>
+  <div class="container">
+
+        <form method="post" action="{% url 'login' %}" class="form-signin">
+          {% if form.errors %}
+          <p>Your username and password didn't match. Please try again.</p>
+          {% endif %}
+
+          {% if next %}
+              {% if user.is_authenticated %}
+              <h2 class="form-signin-heading">Your account doesn't have access to this page. To proceed,
+              please login with an account that has access.</h2>
+              {% else %}
+              <h2 class="form-signin-heading">Please login to see this page.</h2>
+              {% endif %}
+          {% endif %}
+        {% csrf_token %}
+        <label for="{{ form.username.id_for_label }}">{{ form.username.label_tag }}</label>
+        {{ form.username }} <br>
+        <label for="{{ form.password.id_for_label }}">{{ form.password.label_tag }}</label>
+        {{ form.password }}
+        <button class="btn btn-primary btn-block" type="submit" value="login">Sign in</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+  </div>
+
+
+
+    <script src="{% static "hub/js/jquery.min.js" %}"></script>
+    <script src="{% static "hub/js/chart.js" %}"></script>
+    <script src="{% static "hub/js/tablesorter.min.js" %}"></script>
+    <script src="{% static "hub/js/toolkit.js" %}"></script>
+    <script src="{% static "hub/js/application.js" %}"></script>
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+  </body>
+</html>
