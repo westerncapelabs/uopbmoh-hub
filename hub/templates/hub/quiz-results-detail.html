@@ -1,0 +1,59 @@
+{% extends "hub/base.html" %}
+{% load staticfiles %}
+{% block pagetitle %}Quiz Result{% endblock %}
+{% block content %}
+
+<div class="dashhead">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
+    <h2 class="dashhead-title">Quiz Result</h2>
+  </div>
+
+  <div class="btn-toolbar dashhead-toolbar">
+    <div class="btn-toolbar-item input-with-icon">
+      <input type="text" value="14/06/2016" class="form-control" data-provide="datepicker">
+      <span class="icon icon-calendar"></span>
+    </div>
+  </div>
+</div>
+
+<hr class="m-t">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Details</h3>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Participant:</strong> <a href="{% url 'user-detail' result.identity %}">{{ result.identity }}</a></li>
+    <li class="list-group-item"><strong>Quiz:</strong> <a href="{% url 'quiz-detail' result.quiz %}">{{ quizzes|get_item:result.quiz }}</a></li>
+    <li class="list-group-item"><strong>Completed:</strong> {{ result.complete|yesno:"Yes,No,Maybe" }}</li>
+    <li class="list-group-item"><strong>Start time:</strong> {{ result.started_at|get_date|date:"D d M Y H:i" }}</li>
+    <li class="list-group-item"><strong>Complete time:</strong> {{ result.completed_at|get_date|date:"D d M Y H:i" }}</li>
+  </ul>
+</div>
+
+<div class="table-full">
+  <div class="table-responsive">
+    <table class="table" data-sort="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+          <th>Correct</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for answer in answers.results %}
+        <tr>
+          <td>{{ answer.question_text }}</td>
+          <td>{{ answer.answer_text }}</td>
+          <td>{{ answer.correct|yesno:"Yes,No,Maybe" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}

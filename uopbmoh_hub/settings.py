@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'django_filters',
     'rest_hooks',
+    'bootstrapform',
     # us
     'hub',
 
@@ -102,9 +103,29 @@ STATICFILES_FINDERS = (
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-# TEMPLATE_CONTEXT_PROCESSORS = (
-#     "django.core.context_processors.request",
-# )
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # insert your TEMPLATE_DIRS here
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request',
+            ],
+        },
+    },
+]
 
 # Sentry configuration
 RAVEN_CONFIG = {
@@ -173,6 +194,22 @@ CELERY_ROUTES = {
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
+
+CONTINUOUS_LEARNING_URL = os.environ.get(
+    'CONTINUOUS_LEARNING_URL',
+    'http://localhost:8001/api/v1')
+
+CONTINUOUS_LEARNING_TOKEN = os.environ.get(
+    'CONTINUOUS_LEARNING_TOKEN',
+    'REPLACEME')
+
+IDENTITY_STORE_URL = os.environ.get(
+    'IDENTITY_STORE_URL',
+    'http://localhost:8002/api/v1')
+
+IDENTITY_STORE_TOKEN = os.environ.get(
+    'IDENTITY_STORE_TOKEN',
+    'REPLACEME')
 
 import djcelery
 djcelery.setup_loader()

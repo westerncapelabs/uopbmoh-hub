@@ -1,0 +1,57 @@
+{% extends "hub/base.html" %}
+{% load staticfiles %}
+{% block pagetitle %}Quiz Detail{% endblock %}
+{% block content %}
+
+<div class="dashhead">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
+    <h2 class="dashhead-title">Quiz Detail</h2>
+  </div>
+
+  <div class="btn-toolbar dashhead-toolbar">
+    <div class="btn-toolbar-item">
+      <a href="{% url 'quiz-add-questions' quiz.id %}"><button type="button" class="btn btn-pill btn-primary">Add Questions</button></a>
+      <a href="{% url 'quiz-edit' quiz.id %}"><button type="button" class="btn btn-pill btn-primary">Edit</button></a>
+    </div>
+  </div>
+</div>
+
+<hr class="m-t">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Details</h3>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Description:</strong> {{ quiz.description }}</li>
+    <li class="list-group-item"><strong>Active:</strong> {{ quiz.active|yesno:"Yes,No,Maybe" }}</li>
+    <li class="list-group-item"><strong>Created at:</strong> {{ quiz.created_at|get_date|date:"D d M Y H:i" }}</li>
+    <li class="list-group-item"><strong>Updated at:</strong> {{ quiz.updated_at|get_date|date:"D d M Y H:i" }}</li>
+  </ul>
+</div>
+
+<div class="table-full">
+  <div class="table-responsive">
+    <table class="table" data-sort="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for question in questions %}
+        <tr>
+          {% url 'question-detail' question.id as url %}
+          <td>{{ question.question }}</td>
+          <td><a href="{{ url }}">view</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}

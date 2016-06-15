@@ -52,23 +52,18 @@
           <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
             <ul class="nav nav-pills nav-stacked">
               <li class="nav-header">Dashboards</li>
-              <li class="active">
-                <a href="/">Overview</a>
-              </li>
-              <li >
-                <a href="/quiz/">Quiz Results History</a>
-              </li>
-              <li class="nav-header">More</li>
-              <li >
-                <a href="/users/">
-                  Registered Users
-                </a>
-              </li>
-              <li >
-                <a href="quiz-content/">
-                  Quiz Content Management
-                </a>
-              </li>
+              {% url 'index' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Overview</a></li>
+              <li class="nav-header">Users</li>
+              {% url 'users' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Registered Users</a></li>
+              <li class="nav-header">Quizzes</li>
+              {% url 'quiz-results' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Results</a></li>
+              {% url 'quizzes' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Quizzes</a></li>
+              {% url 'questions' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Questions</a></li>
             </ul>
             <hr class="visible-xs m-t">
           </div>

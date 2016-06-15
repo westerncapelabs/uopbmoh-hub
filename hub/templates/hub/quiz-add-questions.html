@@ -1,52 +1,45 @@
 {% extends "hub/base.html" %}
 {% load staticfiles %}
-{% block pagetitle %}Quiz Results{% endblock %}
+{% block pagetitle %}Add Questions To Quiz{% endblock %}
 {% block content %}
 
 <div class="dashhead">
   <div class="dashhead-titles">
     <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
-    <h2 class="dashhead-title">Quiz Results</h2>
+    <h2 class="dashhead-title">Add questions to quiz</h2>
   </div>
 
-  <div class="btn-toolbar dashhead-toolbar">
-    <div class="btn-toolbar-item input-with-icon">
-      <input type="text" value="14/06/2016" class="form-control" data-provide="datepicker">
-      <span class="icon icon-calendar"></span>
-    </div>
-  </div>
 </div>
 
 <hr class="m-t">
+<form id="quiz-add-questions-form" method="post" method="POST" action="." class="form-horizontal">
+  {% csrf_token %}
+
 <div class="table-full">
   <div class="table-responsive">
     <table class="table" data-sort="table">
       <thead>
         <tr>
-          <th>Quiz</th>
-          <th>Completed</th>
-          <th>Start time</th>
-          <th>Complete time</th>
-          <th>Result</th>
+          <th>&nbsp;</th>
+          <th>Question</th>
         </tr>
       </thead>
       <tbody>
-        {% for result in results.results %}
+        {% for question in questions.results %}
+        {% if question.id not in quiz.questions %}
         <tr>
-          {% url 'quiz-results-detail' result.id as url %}
-          <td>{{ quizzes|get_item:result.quiz }}</td>
-          <td>{{ result.complete|yesno:"Yes,No,Maybe" }}</td>
-          <td>{{ result.started_at|get_date|date:"D d M Y H:i" }}</td>
-          <td>{{ result.completed_at|get_date|date:"D d M Y H:i" }}</td>
-          <td><a href="{{ url }}">view</a></td>
+          <td><input type="checkbox" value="{{ question.id }}" name="questions" class="select-row"></td>
+          <td>{{ question.question }}</td>
         </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
     </table>
   </div>
 </div>
-
-<div class="text-center">
+<input type="submit" class="btn btn-pill btn-primary" value="Add to quiz" />
+</form>
+<!-- <div class="text-center">
   <ul class="pagination">
     <li>
       <a href="#" aria-label="Previous">
@@ -64,7 +57,7 @@
       </a>
     </li>
   </ul>
-</div>
+</div> -->
 
 
 {% endblock %}

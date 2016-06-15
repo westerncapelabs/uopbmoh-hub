@@ -22,7 +22,9 @@ setup(
         'django-celery==3.1.17',
         'redis==2.10.5',
         'pytz==2015.7',
-        'django-rest-hooks==1.2.1'
+        'django-rest-hooks==1.2.1',
+        'python-dateutil==2.5.3',
+        'django-bootstrap-form==3.2.1',
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
