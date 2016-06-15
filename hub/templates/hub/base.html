@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Control Interface for Botswana MoH TB project">
+    <meta name="keywords" content="TB control interface Botswana">
+    <meta name="author" content="Western Cape Labs">
+
+    <title>
+
+        UoP Botswana MoH TB Training &middot; {% block pagetitle %}{% endblock %}
+
+    </title>
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+
+      <link href="{% static "hub/css/toolkit-inverse.css" %}" rel="stylesheet">
+
+
+    <link href="{% static "hub/css/application.css" %}" rel="stylesheet">
+
+    <style>
+      /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+      /* this chunk of css is not part of the toolkit :) */
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+      }
+    </style>
+  </head>
+
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3 sidebar">
+        <nav class="sidebar-nav">
+          <div class="sidebar-header">
+            <button class="nav-toggler nav-toggler-sm sidebar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggleable-sm">
+              <span class="sr-only">Toggle nav</span>
+            </button>
+            <a class="sidebar-brand img-responsive" href="/">
+              <img src="{% static "hub/img/logo.png" %}" style="width: 230px; height: 147px" />
+              <!-- <span class="icon icon-leaf sidebar-brand-icon"></span> -->
+            </a>
+          </div>
+
+          <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
+            <ul class="nav nav-pills nav-stacked">
+              <li class="nav-header">Dashboards</li>
+              {% url 'index' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Overview</a></li>
+              <li class="nav-header">Users</li>
+              {% url 'users' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Registered Users</a></li>
+              <li class="nav-header">Quizzes</li>
+              {% url 'quiz-results' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Results</a></li>
+              {% url 'quizzes' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Quizzes</a></li>
+              {% url 'questions' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Questions</a></li>
+            </ul>
+            <hr class="visible-xs m-t">
+          </div>
+        </nav>
+      </div>
+      <div class="col-sm-9 content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+
+
+    <script src="{% static "hub/js/jquery.min.js" %}"></script>
+    <script src="{% static "hub/js/chart.js" %}"></script>
+    <script src="{% static "hub/js/tablesorter.min.js" %}"></script>
+    <script src="{% static "hub/js/toolkit.js" %}"></script>
+    <script src="{% static "hub/js/application.js" %}"></script>
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+  </body>
+</html>

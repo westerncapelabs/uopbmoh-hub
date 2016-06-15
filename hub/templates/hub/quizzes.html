@@ -1,0 +1,66 @@
+{% extends "hub/base.html" %}
+{% load staticfiles %}
+{% block pagetitle %}Quizzes{% endblock %}
+{% block content %}
+
+<div class="dashhead">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
+    <h2 class="dashhead-title">Quizzes</h2>
+  </div>
+
+  <div class="btn-toolbar dashhead-toolbar">
+    <div class="btn-toolbar-item">
+      <a href="{% url 'quiz-edit' 'new' %}"><button type="button" class="btn btn-pill btn-primary">Create new quiz</button></a>
+    </div>
+  </div>
+</div>
+
+<hr class="m-t">
+<div class="table-full">
+  <div class="table-responsive">
+    <table class="table" data-sort="table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Active</th>
+          <th>Questions</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for quiz in quizzes.results %}
+        <tr>
+          <td>{{ quiz.description }}</td>
+          <td>{{ quiz.active|yesno:"Yes,No,Maybe" }}</td>
+          <td>{{ quiz.questions|length }}</td>
+          <td><a href="{% url 'quiz-detail' quiz.id %}">view</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- <div class="text-center">
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</div> -->
+
+
+{% endblock %}

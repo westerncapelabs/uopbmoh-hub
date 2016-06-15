@@ -1,0 +1,23 @@
+{% extends "hub/base.html" %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% block pagetitle %}Quiz Edit{% endblock %}
+{% block content %}
+
+<div class="dashhead">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
+    <h2 class="dashhead-title">Quiz Edit</h2>
+  </div>
+
+</div>
+
+<hr class="m-t">
+
+<form id="quiz-edit-form" method="post" method="POST" action="." class="form-horizontal">
+  {% csrf_token %}
+  {{ form|bootstrap_horizontal }}
+  <input type="submit" class="btn btn-pill btn-primary" value="Save" />
+</form>
+
+{% endblock %}

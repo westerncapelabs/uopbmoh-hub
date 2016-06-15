@@ -1,0 +1,48 @@
+{% extends "hub/base.html" %}
+{% load staticfiles %}
+{% block pagetitle %}User{% endblock %}
+{% block content %}
+
+<div class="dashhead">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
+    <h2 class="dashhead-title">User</h2>
+  </div>
+
+</div>
+
+<hr class="m-t">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Details</h3>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Created at:</strong> {{ identity.created_at|get_date|date:"D d M Y H:i" }}</li>
+    <li class="list-group-item"><strong>Updated at:</strong> {{ identity.updated_at|get_date|date:"D d M Y H:i" }}</li>
+  </ul>
+</div>
+
+<div class="table-full">
+  <div class="table-responsive">
+    <table class="table" data-sort="table">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for field, value in identity.details.items %}
+        <tr>
+          <td>{{ field }}</td>
+          <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}

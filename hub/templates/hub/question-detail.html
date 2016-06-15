@@ -1,0 +1,44 @@
+{% extends "hub/base.html" %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% block pagetitle %}Question{% endblock %}
+{% block content %}
+
+<div class="dashhead">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
+    <h2 class="dashhead-title">Question</h2>
+  </div>
+
+  <div class="btn-toolbar dashhead-toolbar">
+    <div class="btn-toolbar-item">
+      <a href="{% url 'question-edit' question.id %}"><button type="button" class="btn btn-pill btn-primary">Edit</button></a>
+    </div>
+  </div>
+</div>
+<hr class="m-t">
+
+<div class="hr-divider">
+  <h3 class="hr-divider-content hr-divider-heading">
+    Appears as
+  </h3>
+</div>
+<div class="m-a">
+  <p>{{ question.question }}</p>
+  <ol>
+    {% for answer in question.answers %}
+      <li>{{ answer.text }}</li>
+    {% endfor %}
+  </ol>
+</div>
+<div class="hr-divider">
+  <h3 class="hr-divider-content hr-divider-heading">
+    Responses
+  </h3>
+</div>
+<div class="m-a">
+  <p><strong>If correct responds:</strong> {{ question.response_correct}}</p>
+  <p><strong>If incorrect responds:</strong> {{ question.response_incorrect}}</p>
+</div>
+
+{% endblock %}

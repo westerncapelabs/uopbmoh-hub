@@ -1,0 +1,64 @@
+{% extends "hub/base.html" %}
+{% load staticfiles %}
+{% block pagetitle %}Questions{% endblock %}
+{% block content %}
+
+<div class="dashhead">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
+    <h2 class="dashhead-title">Questions</h2>
+  </div>
+
+  <div class="btn-toolbar dashhead-toolbar">
+    <div class="btn-toolbar-item">
+      <a href="{% url 'question-edit' 'new' %}"><button type="button" class="btn btn-pill btn-primary">Create new question</button></a>
+    </div>
+  </div>
+</div>
+
+<hr class="m-t">
+<div class="table-full">
+  <div class="table-responsive">
+    <table class="table" data-sort="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for question in questions.results %}
+        <tr>
+          <td>{{ question.question }}</td>
+          <td>{{ question.active|yesno:"Yes,No,Maybe" }}</td>
+          <td><a href="{% url 'question-detail' question.id %}">view</a> | <a href="{% url 'question-edit' question.id %}">edit</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- <div class="text-center">
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</div> -->
+
+
+{% endblock %}
