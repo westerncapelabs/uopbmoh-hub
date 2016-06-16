@@ -25,6 +25,7 @@ setup(
         'django-rest-hooks==1.2.1',
         'python-dateutil==2.5.3',
         'django-bootstrap-form==3.2.1',
+        'demands==3.0.0'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
