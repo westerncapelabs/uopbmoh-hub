@@ -26,6 +26,7 @@
   <ul class="list-group">
     <li class="list-group-item"><strong>Description:</strong> {{ quiz.description }}</li>
     <li class="list-group-item"><strong>Active:</strong> {{ quiz.active|yesno:"Yes,No,Maybe" }}</li>
+    <li class="list-group-item"><strong>Archived:</strong> {{ quiz.archived|yesno:"Yes,No,Maybe" }}</li>
     <li class="list-group-item"><strong>Created at:</strong> {{ quiz.created_at|get_date|date:"D d M Y H:i" }}</li>
     <li class="list-group-item"><strong>Updated at:</strong> {{ quiz.updated_at|get_date|date:"D d M Y H:i" }}</li>
   </ul>

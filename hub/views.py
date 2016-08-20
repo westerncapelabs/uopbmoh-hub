@@ -83,7 +83,7 @@ def quiz_results_detail(request, tracker_id):
 def quizzes(request):
 
     context = {}
-    quizzes = clApi.get_quizzes()
+    quizzes = clApi.get_quizzes({"archived": False})
     context.update({
         "quizzes": quizzes
     })
@@ -120,7 +120,8 @@ def quiz_edit(request, quiz_id):
         if form.is_valid():
             data = {
                 "description": form.cleaned_data['description'],
-                "active": form.cleaned_data['active']
+                "active": form.cleaned_data['active'],
+                "archived": form.cleaned_data['archived']
             }
             if quiz_id == "new":
                 quiz = clApi.create_quiz(data)
@@ -134,6 +135,7 @@ def quiz_edit(request, quiz_id):
             questions = clApi.get_questions(params={"quiz": quiz_id})
             form.fields["description"].initial = quiz["description"]
             form.fields["active"].initial = quiz["active"]
+            form.fields["archived"].initial = quiz["archived"]
 
     context.update({
         "questions": questions,

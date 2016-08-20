@@ -24,8 +24,9 @@ class QuestionForm(forms.Form):
 
 
 class QuizForm(forms.Form):
-    active = forms.BooleanField(required=False)
     description = forms.CharField(widget=forms.TextInput)
+    active = forms.BooleanField(required=False)
+    archived = forms.BooleanField(required=False)
 
 
 class QuizAddQuestionsForm(forms.Form):
