@@ -1,4 +1,4 @@
-from demands import JSONServiceClient
+from demands import JSONServiceClient, HTTPServiceClient
 
 
 class ContinuousLearningApiClient(object):
@@ -14,12 +14,16 @@ class ContinuousLearningApiClient(object):
 
     """
 
-    def __init__(self, auth_token, api_url, session=None):
+    def __init__(self, auth_token, api_url, session=None, session_http=None):
         headers = {'Authorization': 'Token ' + auth_token}
         if session is None:
             session = JSONServiceClient(url=api_url,
                                         headers=headers)
+        if session_http is None:
+            session_http = HTTPServiceClient(
+                url=api_url, headers={'Authorization': 'Token ' + auth_token})
         self.session = session
+        self.session_http = session_http
 
     def get_trackers(self, params=None):
         return self.session.get('/tracker/', params=params)
@@ -53,6 +57,9 @@ class ContinuousLearningApiClient(object):
 
     def update_question(self, question_id, question):
         return self.session.put('/question/%s/' % question_id, data=question)
+
+    def results_download(self):
+        return self.session_http.get('/tracker/export')
 
 
 class IdentityStoreApiClient(object):

@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.template.defaulttags import register
 from django.core.context_processors import csrf
 from django.conf import settings
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 # from django.utils import timezone
@@ -104,6 +105,15 @@ def quizzes(request):
     return render_to_response("hub/quizzes.html",
                               context,
                               context_instance=RequestContext(request))
+
+
+@login_required(login_url='/login/')
+def results_download(request):
+    results = clApi.results_download()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="export.csv"'
+    response.write(results.text)
+    return response
 
 
 @login_required(login_url='/login/')

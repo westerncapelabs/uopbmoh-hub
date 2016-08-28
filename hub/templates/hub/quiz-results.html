@@ -10,9 +10,8 @@
   </div>
 
   <div class="btn-toolbar dashhead-toolbar">
-    <div class="btn-toolbar-item input-with-icon">
-      <input type="text" value="14/06/2016" class="form-control" data-provide="datepicker">
-      <span class="icon icon-calendar"></span>
+    <div class="btn-toolbar-item">
+      <a href="{% url 'results-download' %}"><button type="button" class="btn btn-pill btn-primary">Download CSV</button></a>
     </div>
   </div>
 </div>
@@ -46,7 +45,7 @@
   </div>
 </div>
 
-<div class="text-center">
+<!-- <div class="text-center">
   <ul class="pagination">
     <li>
       <a href="#" aria-label="Previous">
@@ -64,7 +63,7 @@
       </a>
     </li>
   </ul>
-</div>
+</div> -->
 
 
 {% endblock %}

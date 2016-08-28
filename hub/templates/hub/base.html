@@ -67,6 +67,8 @@
               <li class="nav-header">Facilities</li>
               {% url 'facilities' as url %}
               <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Facilitites</a></li>
+              <li class="nav-header">Other</li>
+              <li><a href="/logout/">Logout</a></li>
             </ul>
             <hr class="visible-xs m-t">
           </div>
