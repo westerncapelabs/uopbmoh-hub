@@ -1,47 +1,30 @@
 {% extends "hub/base.html" %}
 {% load staticfiles %}
-{% block pagetitle %}Users{% endblock %}
+{% block pagetitle %}Facilities{% endblock %}
 {% block content %}
 
 <div class="dashhead">
   <div class="dashhead-titles">
     <h6 class="dashhead-subtitle">UoP Botswana MoH / TB Training</h6>
-    <h2 class="dashhead-title">Users</h2>
+    <h2 class="dashhead-title">Facilities</h2>
   </div>
 </div>
 
 <hr class="m-t">
-<div class="flextable">
-  <form class="form-inline" method="post" action=".">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="code">Facility Code</label>
-      {{ form.code }}
-      <!-- <select class="custom-select form-control" name="address_type" id="address_type">
-        <option value="msisdn">Cell Phone</option>
-      </select> -->
-    </div>
-    <button type="submit" class="btn btn-default">Search</button>
-    <b>Results:</b> {{ identities.count }}
-  </form>
-</div>
 <div class="table-full">
   <div class="table-responsive">
     <table class="table" data-sort="table">
       <thead>
         <tr>
-          <th>Identity</th>
+          <th>Facility</th>
           <th>Created At</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {% for identity in identities.results %}
+        {% for facility in facilities %}
         <tr>
-          {% url 'user-detail' identity.id as url %}
-          <td>{{ identity.id }}</td>
-          <td>{{ identity.created_at|get_date|date:"D d M Y H:i"  }}</td>
-          <td><a href="{{ url }}">view</a></td>
+          <td>{{ facility.code }}</td>
+          <td>{{ facility.created_at|date:"D d M Y H:i"  }}</td>
         </tr>
         {% endfor %}
       </tbody>

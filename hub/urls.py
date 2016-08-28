@@ -1,12 +1,17 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
+from rest_framework import routers
 
 from . import views
+
+router = routers.DefaultRouter()
+router.register(r'facilitycode', views.FacilityCodeViewSet)
 
 urlpatterns = [
     url('^login/', auth_views.login, {
         'template_name': 'hub/login.html'
     }, name='login'),
+    url(r'^api/v1/', include(router.urls)),
     url('^results/$', views.quiz_results, name='quiz-results'),
     url('^result/(?P<tracker_id>[^/]+)/$', views.quiz_results_detail,
         name='quiz-results-detail'),
@@ -25,5 +30,6 @@ urlpatterns = [
     url('^users/$', views.users, name='users'),
     url('^user/(?P<user_id>[^/]+)/$', views.user_detail,
         name='user-detail'),
+    url('^facilities/$', views.facilities, name='facilities'),
     url('', views.index, name='index'),
 ]

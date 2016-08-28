@@ -64,6 +64,9 @@
               <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Quizzes</a></li>
               {% url 'questions' as url %}
               <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Questions</a></li>
+              <li class="nav-header">Facilities</li>
+              {% url 'facilities' as url %}
+              <li{% if request.path == url %} class="active"{% endif %}><a href="{{ url }}">Facilitites</a></li>
             </ul>
             <hr class="visible-xs m-t">
           </div>

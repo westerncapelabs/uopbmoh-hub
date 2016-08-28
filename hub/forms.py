@@ -1,4 +1,14 @@
 from django import forms
+from .models import FacilityCode
+
+
+class IdentitiesFilterForm(forms.Form):
+    code = forms.ModelChoiceField(required=False,
+                                  queryset=FacilityCode.objects.all(),
+                                  empty_label="(all)")
+    # code = forms.CharField(
+    #     widget=forms.TextInput(attrs={'placeholder': 'Mother ID'}),
+    #     required=False)
 
 
 class QuestionForm(forms.Form):

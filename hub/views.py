@@ -4,11 +4,16 @@ from django.template import RequestContext
 from django.template.defaulttags import register
 from django.core.context_processors import csrf
 from django.conf import settings
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 # from django.utils import timezone
 import dateutil.parser
 
+from .models import FacilityCode
 from .services import ContinuousLearningApiClient, IdentityStoreApiClient
-from .forms import QuestionForm, QuizForm, QuizAddQuestionsForm
+from .forms import (QuestionForm, QuizForm, QuizAddQuestionsForm,
+                    IdentitiesFilterForm)
+from .serializers import FacilityCodeSerializer
 
 
 @register.filter
@@ -30,6 +35,14 @@ idApi = IdentityStoreApiClient(
     api_url=settings.IDENTITY_STORE_URL,
     auth_token=settings.IDENTITY_STORE_TOKEN
 )
+
+
+class FacilityCodeViewSet(viewsets.ModelViewSet):
+    """ API endpoint that allows facility codes to be viewed or edited.
+    """
+    permission_classes = (IsAuthenticated,)
+    queryset = FacilityCode.objects.all()
+    serializer_class = FacilityCodeSerializer
 
 
 @login_required(login_url='/login/')
@@ -259,11 +272,20 @@ def question_edit(request, question_id):
 
 @login_required(login_url='/login/')
 def users(request):
-
     context = {}
-    identities = idApi.get_identities()
+    if request.method == "POST":
+        form = IdentitiesFilterForm(request.POST)
+        if form.is_valid() and form.cleaned_data['code'] is not None:
+            identities = idApi.search_identities("details__facility_code",
+                                                 form.cleaned_data['code'])
+        else:
+            identities = idApi.get_identities()
+    else:
+        form = IdentitiesFilterForm()
+        identities = idApi.get_identities()
     context.update({
-        "identities": identities
+        "identities": identities,
+        "form": form
     })
     context.update(csrf(request))
     return render_to_response("hub/users.html",
@@ -281,5 +303,18 @@ def user_detail(request, user_id):
     })
     context.update(csrf(request))
     return render_to_response("hub/user-detail.html",
+                              context,
+                              context_instance=RequestContext(request))
+
+
+@login_required(login_url='/login/')
+def facilities(request):
+    context = {}
+    facilities = FacilityCode.objects.all()
+    context.update({
+        "facilities": facilities
+    })
+    context.update(csrf(request))
+    return render_to_response("hub/facilities.html",
                               context,
                               context_instance=RequestContext(request))

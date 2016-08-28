@@ -81,6 +81,12 @@ class IdentityStoreApiClient(object):
     def get_identity(self, item):
         return self.session.get('/identities/%s/' % item)
 
+    def search_identities(self, field, value):
+        # this is used for searching 'details' field to avoid DRF lacks
+        # use "details__preferred_language" for example field
+        params = {field: value}
+        return self.session.get('/identities/search/', params=params)
+
     def get_identity_by_address(self, address_type, address_value):
         params = {"details__addresses__%s" % address_type: address_value}
         return self.session.get('/identities/search/', params=params)
