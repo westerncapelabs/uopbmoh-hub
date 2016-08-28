@@ -48,7 +48,17 @@ class FacilityCodeViewSet(viewsets.ModelViewSet):
 
 @login_required(login_url='/login/')
 def index(request):
-    return render(request, 'hub/index.html')
+    context = {
+        "stats": {}
+    }
+    stats = clApi.get_stats()
+    context.update({
+        "stats": stats
+    })
+    context.update(csrf(request))
+    return render_to_response("hub/index.html",
+                              context,
+                              context_instance=RequestContext(request))
 
 
 @login_required(login_url='/login/')

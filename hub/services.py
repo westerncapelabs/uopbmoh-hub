@@ -61,6 +61,9 @@ class ContinuousLearningApiClient(object):
     def results_download(self):
         return self.session_http.get('/tracker/export')
 
+    def get_stats(self):
+        return self.session.get('/stats')
+
 
 class IdentityStoreApiClient(object):
     """
